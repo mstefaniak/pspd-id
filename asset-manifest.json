@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/pspd-id/static/css/main.3888e971.chunk.css",
+    "main.js": "/pspd-id/static/js/main.af5e5d2d.chunk.js",
+    "main.js.map": "/pspd-id/static/js/main.af5e5d2d.chunk.js.map",
+    "runtime-main.js": "/pspd-id/static/js/runtime-main.3ae63803.js",
+    "runtime-main.js.map": "/pspd-id/static/js/runtime-main.3ae63803.js.map",
+    "static/js/2.a570733b.chunk.js": "/pspd-id/static/js/2.a570733b.chunk.js",
+    "static/js/2.a570733b.chunk.js.map": "/pspd-id/static/js/2.a570733b.chunk.js.map",
+    "static/js/3.381dbef4.chunk.js": "/pspd-id/static/js/3.381dbef4.chunk.js",
+    "static/js/3.381dbef4.chunk.js.map": "/pspd-id/static/js/3.381dbef4.chunk.js.map",
+    "index.html": "/pspd-id/index.html",
+    "service-worker.js": "/pspd-id/service-worker.js",
+    "service-worker.js.map": "/pspd-id/service-worker.js.map",
+    "static/css/main.3888e971.chunk.css.map": "/pspd-id/static/css/main.3888e971.chunk.css.map",
+    "static/js/2.a570733b.chunk.js.LICENSE.txt": "/pspd-id/static/js/2.a570733b.chunk.js.LICENSE.txt",
+    "static/media/logo.860f766d.png": "/pspd-id/static/media/logo.860f766d.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.3ae63803.js",
+    "static/js/2.a570733b.chunk.js",
+    "static/css/main.3888e971.chunk.css",
+    "static/js/main.af5e5d2d.chunk.js"
+  ]
+}
