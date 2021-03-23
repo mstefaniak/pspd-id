@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/pspd-id/static/css/main.3888e971.chunk.css",
+    "main.css": "/pspd-id/static/css/main.463ab4ee.chunk.css",
     "main.js": "/pspd-id/static/js/main.f4b5364a.chunk.js",
     "main.js.map": "/pspd-id/static/js/main.f4b5364a.chunk.js.map",
     "runtime-main.js": "/pspd-id/static/js/runtime-main.ac81f22a.js",
@@ -12,14 +12,14 @@
     "index.html": "/pspd-id/index.html",
     "service-worker.js": "/pspd-id/service-worker.js",
     "service-worker.js.map": "/pspd-id/service-worker.js.map",
-    "static/css/main.3888e971.chunk.css.map": "/pspd-id/static/css/main.3888e971.chunk.css.map",
+    "static/css/main.463ab4ee.chunk.css.map": "/pspd-id/static/css/main.463ab4ee.chunk.css.map",
     "static/js/2.bdd3e499.chunk.js.LICENSE.txt": "/pspd-id/static/js/2.bdd3e499.chunk.js.LICENSE.txt",
     "static/media/logo.860f766d.png": "/pspd-id/static/media/logo.860f766d.png"
   },
   "entrypoints": [
     "static/js/runtime-main.ac81f22a.js",
     "static/js/2.bdd3e499.chunk.js",
-    "static/css/main.3888e971.chunk.css",
+    "static/css/main.463ab4ee.chunk.css",
     "static/js/main.f4b5364a.chunk.js"
   ]
 }
