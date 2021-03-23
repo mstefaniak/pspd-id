@@ -1,13 +1,14 @@
 import logo from './images/logo.png';
 
 interface ICardProps {
-  name: string
-  number: number
+  firstName: string
+  lastName: string
+  id: number
   isActive: boolean
-  joinDate: Date
+  createdAt: string
 }
 
-const Card = ({ name, number, isActive, joinDate }: ICardProps) => {
+const Card = ({ firstName, lastName, id, isActive, createdAt }: ICardProps) => {
   return (
     <div className="sm:min-h-screen sm:flex sm:items-start sm:justify-center sm:bg-gray-50 sm:py-12">
       <div className="sm:max-w-lg sm:shadow bg-white overflow-hidden sm:rounded-lg">
@@ -26,7 +27,7 @@ const Card = ({ name, number, isActive, joinDate }: ICardProps) => {
                 Name
               </dt>
               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                {name}
+                {`${firstName} ${lastName}`}
               </dd>
             </div>
             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -34,7 +35,7 @@ const Card = ({ name, number, isActive, joinDate }: ICardProps) => {
                 Numer
               </dt>
               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                {number}
+                {id}
               </dd>
             </div>
             <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -52,7 +53,7 @@ const Card = ({ name, number, isActive, joinDate }: ICardProps) => {
                 Data przystąpienia
               </dt>
               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                {new Intl.DateTimeFormat().format(joinDate)}
+                {new Intl.DateTimeFormat().format(new Date(createdAt))}
               </dd>
             </div>
           </dl>

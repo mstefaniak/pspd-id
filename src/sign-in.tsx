@@ -1,7 +1,12 @@
 import { SyntheticEvent, ChangeEvent, useState } from 'react'
 import logo from './images/logo.png';
+import { getUser, User } from './lib/api'
 
-const SignIn = () => {
+interface ISignInProps {
+  onSuccess: (user: User) => void
+}
+
+const SignIn = ({ onSuccess }: ISignInProps) => {
   const [email, setEmail] = useState<string>()
   const [pass, setPass] = useState<string>()
 
@@ -13,9 +18,13 @@ const SignIn = () => {
     setPass(event.target.value)
   }
 
-  const handleSubmit = (event: SyntheticEvent) => {
+  const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault()
 
+    if (pass && email) {
+      const user = await getUser(email, pass)
+      onSuccess(user)
+    }
     // TODO
   }
 
