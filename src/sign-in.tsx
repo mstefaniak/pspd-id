@@ -1,6 +1,7 @@
 import { SyntheticEvent, ChangeEvent, useState } from 'react'
 import logo from './images/logo.png';
-import { getUser, User } from './lib/api'
+import { User } from './types'
+import { getUser } from './lib/api'
 
 interface ISignInProps {
   onSuccess: (user: User) => void
@@ -9,6 +10,7 @@ interface ISignInProps {
 const SignIn = ({ onSuccess }: ISignInProps) => {
   const [email, setEmail] = useState<string>()
   const [pass, setPass] = useState<string>()
+  const [error, setError] = useState<boolean>(false)
 
   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value)
@@ -23,9 +25,12 @@ const SignIn = ({ onSuccess }: ISignInProps) => {
 
     if (pass && email) {
       const user = await getUser(email, pass)
-      onSuccess(user)
+      if (user) {
+        onSuccess(user)
+      } else {
+        setError(true)
+      }
     }
-    // TODO
   }
 
   return (
@@ -37,6 +42,7 @@ const SignIn = ({ onSuccess }: ISignInProps) => {
             LEGITYMACJA
           </h2>
         </div>
+        {error && <div className="bg-red-200 text-red-600 p-4 text-center rounded">Niepoprawny email i/lub hasło</div>}
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <input type="hidden" name="remember" value="true" />
           <div className="rounded-md shadow-sm -space-y-px">

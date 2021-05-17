@@ -1,14 +1,9 @@
 import logo from './images/logo.png';
+import { User } from './types'
 
-interface ICardProps {
-  firstName: string
-  lastName: string
-  id: number
-  isActive: boolean
-  createdAt: string
-}
+const Card = ({ name, id, status, joinDate }: User) => {
+  const isActive = status === 'current'
 
-const Card = ({ firstName, lastName, id, isActive, createdAt }: ICardProps) => {
   return (
     <div className="sm:min-h-screen sm:flex sm:items-start sm:justify-center sm:bg-gray-50 sm:py-12">
       <div className="sm:max-w-lg sm:shadow bg-white overflow-hidden sm:rounded-lg">
@@ -27,7 +22,7 @@ const Card = ({ firstName, lastName, id, isActive, createdAt }: ICardProps) => {
                 Name
               </dt>
               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                {`${firstName} ${lastName}`}
+                {name}
               </dd>
             </div>
             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -53,7 +48,7 @@ const Card = ({ firstName, lastName, id, isActive, createdAt }: ICardProps) => {
                 Data przystąpienia
               </dt>
               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                {new Intl.DateTimeFormat().format(new Date(createdAt))}
+                {new Intl.DateTimeFormat().format(new Date(joinDate))}
               </dd>
             </div>
           </dl>

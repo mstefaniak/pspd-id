@@ -1,18 +1,50 @@
-interface User {
-  firstName: string
-  lastName: string
-  email: string
-  isActive: boolean
-  id: number
-  createdAt: string
+import { User } from '../types'
+
+const API_URL = 'https://crm-test.pspd.org.pl/api'
+const headers = new Headers({
+  'Content-Type': 'application/json',
+})
+interface TokenResponse {
+  token: string
 }
 
-const getUser = async (email: string, pass: string) => {
+const getToken = async (username: string, password: string) => {
+  const response = await fetch(`${API_URL}/user/token`, {
+    method: 'POST',
+    body: JSON.stringify({username, password}),
+    headers,
+  })
+
+  const data = await response.json() as TokenResponse
+
+  return data.token
+}
+
+const login = async (username: string, password: string) => {
+  const token = getToken(username, password)
   const response = await fetch(
-    'https://60599953b11aba001745c686.mockapi.io/api/users',
+    `${API_URL}/user/login`,
     {
       method: 'POST',
-      body: JSON.stringify({email, pass})
+      body: JSON.stringify({username, password, token}),
+      headers,
+    })
+
+  return response.status < 400
+}
+
+const getUser = async (username: string, password: string) => {
+  const isLogged = await login(username, password)
+
+  if (!isLogged) {
+    return false
+  }
+
+  const response = await fetch(
+    `${API_URL}/data/userdata`,
+    {
+      method: 'GET',
+      headers,
     })
 
   // TODO: handle errors
@@ -22,5 +54,4 @@ const getUser = async (email: string, pass: string) => {
   return user as User;
 }
 
-export type { User }
 export { getUser }

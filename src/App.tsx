@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './App.css';
 import { SignIn } from './sign-in'
 import { Card } from './card'
-import { User } from './lib/api'
+import { User } from './types'
 
 const App = () => {
   const [user, setUser] = useState<User>()
