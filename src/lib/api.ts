@@ -3,7 +3,6 @@ import { User } from '../types'
 const API_URL = 'https://crm-test.pspd.org.pl/api'
 
 const headers = new Headers({
-  'Access-Control-Allow-Headers': 'Content-Type',
   'Content-Type': 'application/json',
 })
 interface TokenResponse {
@@ -18,12 +17,13 @@ const getToken = async (username: string, password: string) => {
   })
 
   const data = await response.json() as TokenResponse
-
+  
   return data.token
 }
 
 const login = async (username: string, password: string) => {
-  const token = getToken(username, password)
+  const token = await getToken(username, password)
+  
   const response = await fetch(
     `${API_URL}/user/login`,
     {
