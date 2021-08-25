@@ -3,7 +3,8 @@ import { User } from '../types'
 const API_URL = 'https://crm-test.pspd.org.pl/api'
 
 const headers = new Headers({
-  // 'Content-Type': 'application/json',
+  'Access-Control-Allow-Headers': 'Content-Type',
+  'Content-Type': 'application/json',
 })
 interface TokenResponse {
   token: string
