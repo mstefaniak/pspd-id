@@ -2,7 +2,7 @@ import logo from './images/logo.png';
 import { User } from './types'
 
 const Card = ({ name, id, status, joinDate }: User) => {
-  const isActive = status === 'current'
+  const isActive = status === 'Current'
 
   return (
     <div className="sm:min-h-screen sm:flex sm:items-start sm:justify-center sm:bg-gray-50 sm:py-12">
@@ -19,7 +19,7 @@ const Card = ({ name, id, status, joinDate }: User) => {
           <dl>
             <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
               <dt className="text-sm font-medium text-gray-500">
-                Name
+                Imię i nazwisko
               </dt>
               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                 {name}
@@ -48,7 +48,7 @@ const Card = ({ name, id, status, joinDate }: User) => {
                 Data przystąpienia
               </dt>
               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                {new Intl.DateTimeFormat().format(new Date(joinDate))}
+                {new Intl.DateTimeFormat().format(Number(joinDate) * 1000)}
               </dd>
             </div>
           </dl>

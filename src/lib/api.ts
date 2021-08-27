@@ -46,6 +46,7 @@ const getUser = async (username: string, password: string) => {
     `${API_URL}/data/userdata`,
     {
       method: 'GET',
+      credentials: 'include',
       headers,
     })
 
