@@ -1,17 +1,16 @@
 /* eslint-disable no-restricted-globals */
 
-// This service worker can be customized!
-// See https://developers.google.com/web/tools/workbox/modules
-// for the list of available Workbox modules, or add any other
-// code you'd like.
-// You can also remove this file if you'd prefer not to use a
-// service worker, and the Workbox build step will be skipped.
-
 import { clientsClaim } from 'workbox-core';
 import { ExpirationPlugin } from 'workbox-expiration';
 import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing';
 import { StaleWhileRevalidate } from 'workbox-strategies';
+
+// const CACHE_NAME = 'pspd-id'
+
+// const filesToCache = [
+
+// ]
 
 clientsClaim();
 
@@ -70,3 +69,19 @@ self.addEventListener('message', (event) => {
 });
 
 // Any other custom service worker logic can go here.
+// self.addEventListener('install', event => {
+//   console.log('V1 installing…');
+// });
+
+// self.addEventListener('activate', event => {
+//   console.log('V1 now ready to handle fetches!');
+// });
+
+// self.addEventListener('fetch', event => {
+//   console.log(event.request.url);
+//   event.respondWith(
+//     caches.match(event.request).then((response) => {
+//       response || fetch(event.request);
+//     })
+//   )
+// });
