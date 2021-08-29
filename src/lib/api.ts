@@ -12,11 +12,6 @@ interface LoginResponse {
   session_name: string;
 }
 
-interface LoginReturn {
-  isLogged: boolean
-  token: string
-}
-
 const getToken = async (username: string, password: string) => {
   const response = await fetch(`${API_URL}/user/token`, {
     method: 'POST',
@@ -28,10 +23,10 @@ const getToken = async (username: string, password: string) => {
 
   const data = await response.json() as TokenResponse
 
-  return data.token
+  return data?.token
 }
 
-const login = async (username: string, password: string): Promise<LoginReturn> => {
+const login = async (username: string, password: string): Promise<boolean> => {
   const token = await getToken(username, password)
 
   const response = await fetch(`${API_URL}/user/login`, {
@@ -46,17 +41,27 @@ const login = async (username: string, password: string): Promise<LoginReturn> =
 
   const data = (await response.json()) as LoginResponse
 
-  return {
-    isLogged: response.status < 400,
-    token: data?.token ?? '',
-  }
+  sessionStorage.setItem('token', data?.token)
+
+  return response.status < 400
 }
 
-const getUser = async (username: string, password: string): Promise<User | false> => {
-  const { isLogged, token } = await login(username, password)
+const getUser = async (username: string, password: string): Promise<User | null> => {
+  const isLogged = await login(username, password)
 
   if (!isLogged) {
-    return false
+    return null
+  }
+
+  return fetchUserData()
+}
+
+export const fetchUserData = async (): Promise<User | null> => {
+  const token = sessionStorage.getItem('token')
+
+  if (!token) {
+    console.error('Token not found')
+    return null
   }
 
   const response = await fetch(`${API_URL}/data/userdata`, {
@@ -68,7 +73,9 @@ const getUser = async (username: string, password: string): Promise<User | false
     },
   })
 
-  // TODO: handle errors
+  if (response.status >= 400) {
+    return null
+  }
 
   const user = await response.json()
 
@@ -76,7 +83,7 @@ const getUser = async (username: string, password: string): Promise<User | false
     return user[0] as User
   }
 
-  return false
+  return null
 }
 
 export { getUser }
