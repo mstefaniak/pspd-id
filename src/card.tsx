@@ -1,7 +1,7 @@
-import logo from './images/logo.png';
+import logo from './images/logo.png'
 import { User } from './types'
 
-const Card = ({ name, id, status, joinDate }: User) => {
+const Card = ({ name, id, status, joinDate }: User): JSX.Element => {
   const isActive = status === 'Current'
 
   return (
@@ -39,7 +39,7 @@ const Card = ({ name, id, status, joinDate }: User) => {
               </dt>
               <dd className="mt-1 text-sm text-green-600 sm:mt-0 sm:col-span-2">
                 <span className={isActive ? 'text-green-600' : 'text-red-600'}>
-                {isActive ? 'TAK' : 'NIE'}
+                  {isActive ? 'TAK' : 'NIE'}
                 </span>
               </dd>
             </div>

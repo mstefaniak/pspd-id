@@ -1,5 +1,5 @@
 import { SyntheticEvent, ChangeEvent, useState } from 'react'
-import logo from './images/logo.png';
+import logo from './images/logo.png'
 import { User } from './types'
 import { getUser } from './lib/api'
 
@@ -7,7 +7,7 @@ interface ISignInProps {
   onSuccess: (user: User) => void
 }
 
-const SignIn = ({ onSuccess }: ISignInProps) => {
+const SignIn = ({ onSuccess }: ISignInProps): JSX.Element => {
   const [email, setEmail] = useState<string>()
   const [pass, setPass] = useState<string>()
   const [error, setError] = useState<boolean>(false)

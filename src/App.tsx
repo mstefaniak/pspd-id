@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import './App.css';
+import './App.css'
 import { SignIn } from './sign-in'
 import { Card } from './card'
 import { User } from './types'
 
-const App = () => {
+const App = (): JSX.Element => {
   const [user, setUser] = useState<User>()
 
   const handleSuccess = (userData: User) => {
@@ -17,7 +17,7 @@ const App = () => {
 
   return (
     <SignIn onSuccess={handleSuccess} />
-  );
+  )
 }
 
 export { App }

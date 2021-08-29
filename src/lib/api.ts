@@ -1,59 +1,62 @@
-import { User } from "../types";
+import { User } from '../types'
 
-const API_URL = "https://crm-test.pspd.org.pl/api";
+const API_URL = 'https://crm-test.pspd.org.pl/api'
 
 const headers = new Headers({
-  "Content-Type": "application/json",
-});
+  'Content-Type': 'application/json',
+})
 interface TokenResponse {
-  token: string;
+  token: string
 }
 
 const getToken = async (username: string, password: string) => {
   const response = await fetch(`${API_URL}/user/token`, {
-    method: "POST",
+    method: 'POST',
     body: JSON.stringify({ username, password }),
     headers,
-  });
+  })
 
-  const data = (await response.json()) as TokenResponse;
+  const data = await response.json() as TokenResponse
 
-  return data.token;
-};
+  return data.token
+}
 
 const login = async (username: string, password: string) => {
-  const token = await getToken(username, password);
+  const token = await getToken(username, password)
 
-  const response = await fetch(`${API_URL}/user/login`, {
-    method: "POST",
-    body: JSON.stringify({ username, password, token }),
-    headers,
-  });
+  const response = await fetch(
+    `${API_URL}/user/login`,
+    {
+      method: 'POST',
+      body: JSON.stringify({ username, password, token }),
+      headers,
+    })
 
-  return { isLogged: response.status < 400, token };
-};
+  return response.status < 400
+}
 
-const getUser = async (username: string, password: string) => {
-  const { isLogged, token } = await login(username, password);
+const getUser = async (username: string, password: string): Promise<User | false> => {
+  const isLogged = await login(username, password)
 
   if (!isLogged) {
-    return false;
+    return false
   }
 
-  const response = await fetch(`${API_URL}/data/userdata`, {
-    method: "GET",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + token,
-    },
-  });
+  const response = await fetch(
+    `${API_URL}/data/userdata`,
+    {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
 
   // TODO: handle errors
 
-  const user = await response.json();
+  const user = await response.json()
 
-  return user as User;
-};
+  return user as User
+}
 
-export { getUser };
+export { getUser }
