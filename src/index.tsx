@@ -5,6 +5,12 @@ import { App } from './App'
 import reportWebVitals from './reportWebVitals'
 import registerServiceWorker from './serviceWorkerRegistration'
 
+if (process.env.NODE_ENV === 'development') {
+  // eslint-disable-next-line
+  const { worker } = require('./mocks/browser')
+  worker.start()
+}
+
 ReactDOM.render(
   <React.StrictMode>
     <App />
