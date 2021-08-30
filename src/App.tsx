@@ -4,8 +4,10 @@ import { SignIn } from './sign-in'
 import { Card } from './card'
 import { User } from './types'
 import { fetchUserData } from './lib/api'
+import { Loading } from './loading'
 
 const App = (): JSX.Element => {
+  const [isLoading, setIsLoading] = useState(true)
   const [user, setUser] = useState<User>()
 
   const init = useCallback(async () => {
@@ -16,11 +18,15 @@ const App = (): JSX.Element => {
   }, [fetchUserData])
 
   useEffect(() => {
-    init()
+    init().then(() => setIsLoading(false))
   }, [init])
 
   const handleSuccess = (userData: User) => {
     setUser(userData)
+  }
+
+  if (isLoading) {
+    return <Loading />
   }
 
   if (user) {
