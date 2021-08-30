@@ -1,6 +1,5 @@
 import { User } from '../types'
-
-const API_URL = 'https://crm-test.pspd.org.pl/api'
+import { API_URL } from './const'
 
 interface TokenResponse {
   token: string
@@ -80,6 +79,8 @@ export const fetchUserData = async (): Promise<User | null> => {
   const user = await response.json()
 
   if (user && user.length) {
+    sessionStorage.setItem('lastUpdate', Date.now().toString())
+    
     return user[0] as User
   }
 

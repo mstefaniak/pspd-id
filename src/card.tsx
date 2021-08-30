@@ -1,12 +1,33 @@
 import { User } from './types'
 import { NotActive } from './not-active'
 import { CardLine } from './card-line'
+import { LOCALE, OUTDATE_DIFF } from './lib/const'
 
 import logo from './images/logo.png'
+import { useEffect, useState } from 'react'
 
 const Card = ({ firstName, lastName, id, status, joinDate, ot }: User): JSX.Element => {
+  const [currentTimestamp, setCurrentTimestamp] = useState(Date.now())
   const isActive = status === 'Current'
   const fullName = `${firstName} ${lastName}`
+  const lastUpdateTimestamp = Number(sessionStorage.getItem('lastUpdate'))
+  const options: Intl.DateTimeFormatOptions = {
+    year: 'numeric', month: 'numeric', day: 'numeric',
+    hour: 'numeric', minute: 'numeric',
+  }
+  const isOutdated = currentTimestamp - lastUpdateTimestamp > OUTDATE_DIFF
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTimestamp(Date.now())
+    }, 30 * 1000)
+
+    return () => {
+      clearInterval(interval)
+    }
+  }, [])
+
+  const lastUpdate = new Intl.DateTimeFormat(LOCALE, options).format(lastUpdateTimestamp)
 
   if (!isActive) {
     return <NotActive />
@@ -27,7 +48,7 @@ const Card = ({ firstName, lastName, id, status, joinDate, ot }: User): JSX.Elem
           <dl>
             <CardLine
               label="Imię i nazwisko" 
-              value={fullName} 
+              value={<span className="font-bold">{fullName}</span>} 
               isEven 
             />
             <CardLine 
@@ -36,17 +57,21 @@ const Card = ({ firstName, lastName, id, status, joinDate, ot }: User): JSX.Elem
             />
             <CardLine 
               label="Składka opłacona" 
-              value="TAK" 
+              value={<span className="text-green-600 font-bold">TAK</span>} 
               isEven 
             />
             <CardLine 
               label="Data przystąpienia" 
-              value={new Intl.DateTimeFormat().format(Number(joinDate) * 1000)} 
+              value={new Intl.DateTimeFormat(LOCALE).format(Number(joinDate) * 1000)} 
             />
             <CardLine
               label="Oddział"
               value={ot}
               isEven
+            />
+            <CardLine
+              label="Ostatnia aktualizacja"
+              value={<span className={isOutdated ? 'text-red-600 font-bold' : ''}>{lastUpdate}</span>}
             />
           </dl>
         </div>
