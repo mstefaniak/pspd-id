@@ -5,4 +5,5 @@ export interface User {
   status: string
   id: number
   joinDate: string
+  ot: string
 }

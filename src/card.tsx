@@ -1,9 +1,16 @@
 import { User } from './types'
+import { NotActive } from './not-active'
+import { CardLine } from './card-line'
 
 import logo from './images/logo.png'
 
-const Card = ({ firstName, lastName, id, status, joinDate }: User): JSX.Element => {
+const Card = ({ firstName, lastName, id, status, joinDate, ot }: User): JSX.Element => {
   const isActive = status === 'Current'
+  const fullName = `${firstName} ${lastName}`
+
+  if (!isActive) {
+    return <NotActive />
+  }
 
   return (
     <div className="sm:min-h-screen sm:flex sm:items-start sm:justify-center sm:bg-gray-50 sm:py-12">
@@ -18,38 +25,29 @@ const Card = ({ firstName, lastName, id, status, joinDate }: User): JSX.Element 
         </div>
         <div className="border-t border-gray-200">
           <dl>
-            <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt className="text-sm font-medium text-gray-500">
-                Imię i nazwisko
-              </dt>
-              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                {firstName} {lastName}
-              </dd>
-            </div>
-            <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt className="text-sm font-medium text-gray-500">Numer</dt>
-              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                {id}
-              </dd>
-            </div>
-            <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt className="text-sm font-medium text-gray-500">
-                Składka opłacona
-              </dt>
-              <dd className="mt-1 text-sm text-green-600 sm:mt-0 sm:col-span-2">
-                <span className={isActive ? 'text-green-600' : 'text-red-600'}>
-                  {isActive ? 'TAK' : 'NIE'}
-                </span>
-              </dd>
-            </div>
-            <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt className="text-sm font-medium text-gray-500">
-                Data przystąpienia
-              </dt>
-              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                {new Intl.DateTimeFormat().format(Number(joinDate) * 1000)}
-              </dd>
-            </div>
+            <CardLine
+              label="Imię i nazwisko" 
+              value={fullName} 
+              isEven 
+            />
+            <CardLine 
+              label="Numer" 
+              value={id} 
+            />
+            <CardLine 
+              label="Składka opłacona" 
+              value="TAK" 
+              isEven 
+            />
+            <CardLine 
+              label="Data przystąpienia" 
+              value={new Intl.DateTimeFormat().format(Number(joinDate) * 1000)} 
+            />
+            <CardLine
+              label="Oddział"
+              value={ot}
+              isEven
+            />
           </dl>
         </div>
       </div>
