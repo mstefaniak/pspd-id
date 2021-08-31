@@ -20,12 +20,12 @@ export const fetchUserData = async (
     return null
   }
 
-  const user = await response.json()
+  const data = await response.json()
 
-  if (user && user.length) {
+  if (data?.user) {
     sessionStorage.setItem('lastUpdate', Date.now().toString())
 
-    return user as User
+    return data?.user as User
   }
 
   return null
