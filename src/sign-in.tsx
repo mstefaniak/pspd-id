@@ -1,11 +1,11 @@
 import { SyntheticEvent, ChangeEvent, useState } from 'react'
 import logo from './images/logo.png'
 import { User } from './types'
-import { getUser } from './lib/api'
+import { fetchUserData } from './lib/api'
 import { Loading } from './loading'
 
 interface ISignInProps {
-  onSuccess: (user: User) => void
+  onSuccess: (user: User) => void;
 }
 
 const SignIn = ({ onSuccess }: ISignInProps): JSX.Element => {
@@ -27,7 +27,7 @@ const SignIn = ({ onSuccess }: ISignInProps): JSX.Element => {
 
     if (pass && email) {
       setIsLoading(true)
-      const user = await getUser(email, pass)
+      const user = await fetchUserData(email, pass)
       if (user) {
         onSuccess(user)
       } else {
