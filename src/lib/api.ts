@@ -1,34 +1,34 @@
-import { User } from '../types'
-import { API_URL } from './const'
+import { User } from "../types";
+import { API_URL } from "./const";
 
 export const fetchUserData = async (
   username: string,
   password: string
 ): Promise<User | null> => {
   const response = await fetch(`${API_URL}/civicrm/membership`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
       username: username,
       password: password,
     }),
-  })
+  });
 
   if (response.status >= 400) {
-    return null
+    return null;
   }
 
-  const data = await response.json()
+  const data = await response.json();
 
-  if (data?.user) {
-    sessionStorage.setItem('lastUpdate', Date.now().toString())
+  if (data?.pspdId) {
+    sessionStorage.setItem("lastUpdate", Date.now().toString());
 
-    return data?.user as User
+    return data as User;
   }
 
-  return null
-}
+  return null;
+};
 
-export default { fetchUserData }
+export default { fetchUserData };
