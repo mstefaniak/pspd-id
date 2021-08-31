@@ -1,10 +1,10 @@
-import { User } from "./types";
-import { NotActive } from "./not-active";
-import { CardLine } from "./card-line";
-import { LOCALE, OUTDATE_DIFF } from "./lib/const";
+import { User } from './types'
+import { NotActive } from './not-active'
+import { CardLine } from './card-line'
+import { LOCALE, OUTDATE_DIFF } from './lib/const'
 
-import logo from "./images/logo.png";
-import { useEffect, useState } from "react";
+import logo from './images/logo.png'
+import { useEffect, useState } from 'react'
 
 const Card = ({
   firstName,
@@ -14,35 +14,35 @@ const Card = ({
   joinDate,
   region,
 }: User): JSX.Element => {
-  const [currentTimestamp, setCurrentTimestamp] = useState(Date.now());
-  const isActive = status === "Current";
-  const fullName = `${firstName} ${lastName}`;
-  const lastUpdateTimestamp = Number(sessionStorage.getItem("lastUpdate"));
+  const [currentTimestamp, setCurrentTimestamp] = useState(Date.now())
+  const isActive = status === 'Current'
+  const fullName = `${firstName} ${lastName}`
+  const lastUpdateTimestamp = Number(sessionStorage.getItem('lastUpdate'))
   const options: Intl.DateTimeFormatOptions = {
-    year: "numeric",
-    month: "numeric",
-    day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-  };
-  const isOutdated = currentTimestamp - lastUpdateTimestamp > OUTDATE_DIFF;
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+  }
+  const isOutdated = currentTimestamp - lastUpdateTimestamp > OUTDATE_DIFF
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentTimestamp(Date.now());
-    }, 30 * 1000);
+      setCurrentTimestamp(Date.now())
+    }, 30 * 1000)
 
     return () => {
-      clearInterval(interval);
-    };
-  }, []);
+      clearInterval(interval)
+    }
+  }, [])
 
   const lastUpdate = new Intl.DateTimeFormat(LOCALE, options).format(
     lastUpdateTimestamp
-  );
+  )
 
   if (!isActive) {
-    return <NotActive />;
+    return <NotActive />
   }
 
   return (
@@ -79,7 +79,7 @@ const Card = ({
             <CardLine
               label="Ostatnia aktualizacja"
               value={
-                <span className={isOutdated ? "text-red-600 font-bold" : ""}>
+                <span className={isOutdated ? 'text-red-600 font-bold' : ''}>
                   {lastUpdate}
                 </span>
               }
@@ -88,7 +88,7 @@ const Card = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export { Card };
+export { Card }
