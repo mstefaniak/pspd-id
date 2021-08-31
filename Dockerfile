@@ -6,6 +6,6 @@ COPY . ./
 RUN yarn build
 
 FROM nginx:1.21-alpine
-COPY --from=build-deps /usr/src/app/build /usr/share/nginx/html
+COPY --from=build-deps /usr/src/app/build /etc/nginx/html
 EXPOSE 8081
 CMD ["/bin/sh", "-c", "sed -i 's/listen  .*/listen 8081;/g' /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"]
