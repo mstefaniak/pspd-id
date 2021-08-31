@@ -20,12 +20,12 @@ export const fetchUserData = async (
     return null;
   }
 
-  const data = await response.json();
+  const parsedResponse = await response.json();
 
-  if (data?.pspdId) {
+  if (parsedResponse?.data) {
     sessionStorage.setItem("lastUpdate", Date.now().toString());
 
-    return data as User;
+    return parsedResponse.data as User;
   }
 
   return null;
