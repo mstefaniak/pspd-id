@@ -16,20 +16,13 @@ export const fetchUserData = async (
     }),
   })
 
-  console.log(response)
-  console.log(response.status)
-
   if (response.status >= 400) {
     return null
   }
 
   const parsedResponse = await response.json()
-  console.log(parsedResponse)
-
   if (parsedResponse?.data) {
     sessionStorage.setItem('lastUpdate', Date.now().toString())
-
-    console.log(parsedResponse.data)
 
     return parsedResponse.data as User
   }

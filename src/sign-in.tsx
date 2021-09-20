@@ -28,7 +28,6 @@ const SignIn = ({ onSuccess }: ISignInProps): JSX.Element => {
     if (pass && email) {
       setIsLoading(true)
       const user = await fetchUserData(email, pass)
-      console.log(user)
       if (user) {
         onSuccess(user)
       } else {
