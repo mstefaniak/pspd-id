@@ -6,4 +6,5 @@ export interface User {
   pspdId: number;
   joinDate: string;
   region: string;
+  qrCode: string;
 }

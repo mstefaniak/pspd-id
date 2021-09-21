@@ -5,6 +5,7 @@ import { LOCALE, OUTDATE_DIFF } from './lib/const'
 
 import logo from './images/logo.png'
 import { useEffect, useState } from 'react'
+import Clock from './components/Clock'
 
 const Card = ({
   firstName,
@@ -13,6 +14,7 @@ const Card = ({
   status,
   joinDate,
   region,
+  qrCode
 }: User): JSX.Element => {
   const [currentTimestamp, setCurrentTimestamp] = useState(Date.now())
   const isActive = status === 'Current'
@@ -85,6 +87,12 @@ const Card = ({
               }
             />
           </dl>
+        </div>
+        <div>
+          <Clock />
+        </div>
+        <div className="px-8 py-8">
+          <img src={`data:image/png;base64,${qrCode}`} />
         </div>
       </div>
     </div>
