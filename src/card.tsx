@@ -5,7 +5,7 @@ import { LOCALE, OUTDATE_DIFF } from './lib/const'
 
 import logo from './images/logo.png'
 import { useEffect, useState } from 'react'
-import Clock from './components/Clock'
+import DigitalClock from './components/DigitalClock'
 
 const Card = ({
   firstName,
@@ -58,6 +58,12 @@ const Card = ({
             <img src={logo} className="App-logo" alt="logo" />
           </div>
         </div>
+        <div>
+          <DigitalClock />
+        </div>
+        <div className="px-8 pt-2 pb-4">
+          <img src={`data:image/png;base64,${qrCode}`} />
+        </div>
         <div className="border-t border-gray-200">
           <dl>
             <CardLine
@@ -87,12 +93,6 @@ const Card = ({
               }
             />
           </dl>
-        </div>
-        <div>
-          <Clock />
-        </div>
-        <div className="px-8 py-8">
-          <img src={`data:image/png;base64,${qrCode}`} />
         </div>
       </div>
     </div>
