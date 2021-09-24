@@ -5,18 +5,30 @@ import { LOCALE, OUTDATE_DIFF } from './lib/const'
 
 import logo from './images/logo.png'
 import { useEffect, useState } from 'react'
+import DigitalClock from './components/DigitalClock'
 
-const Card = ({ firstName, lastName, id, status, joinDate, ot }: User): JSX.Element => {
+const Card = ({
+  firstName,
+  lastName,
+  pspdId,
+  status,
+  joinDate,
+  region,
+  qrCode
+}: User): JSX.Element => {
   const [currentTimestamp, setCurrentTimestamp] = useState(Date.now())
   const isActive = status === 'Current'
   const fullName = `${firstName} ${lastName}`
   const lastUpdateTimestamp = Number(sessionStorage.getItem('lastUpdate'))
   const options: Intl.DateTimeFormatOptions = {
-    year: 'numeric', month: 'numeric', day: 'numeric',
-    hour: 'numeric', minute: 'numeric',
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
   }
   const isOutdated = currentTimestamp - lastUpdateTimestamp > OUTDATE_DIFF
-  
+
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTimestamp(Date.now())
@@ -27,7 +39,9 @@ const Card = ({ firstName, lastName, id, status, joinDate, ot }: User): JSX.Elem
     }
   }, [])
 
-  const lastUpdate = new Intl.DateTimeFormat(LOCALE, options).format(lastUpdateTimestamp)
+  const lastUpdate = new Intl.DateTimeFormat(LOCALE, options).format(
+    lastUpdateTimestamp
+  )
 
   if (!isActive) {
     return <NotActive />
@@ -44,34 +58,39 @@ const Card = ({ firstName, lastName, id, status, joinDate, ot }: User): JSX.Elem
             <img src={logo} className="App-logo" alt="logo" />
           </div>
         </div>
+        <div>
+          <DigitalClock />
+        </div>
+        <div className="px-8 pt-2 pb-4">
+          <img src={`data:image/png;base64,${qrCode}`} />
+        </div>
         <div className="border-t border-gray-200">
           <dl>
             <CardLine
-              label="Imię i nazwisko" 
-              value={<span className="font-bold">{fullName}</span>} 
-              isEven 
+              label="Imię i nazwisko"
+              value={<span className="font-bold">{fullName}</span>}
+              isEven
             />
-            <CardLine 
-              label="Numer" 
-              value={id} 
-            />
-            <CardLine 
-              label="Składka opłacona" 
-              value={<span className="text-green-600 font-bold">TAK</span>} 
-              isEven 
-            />
-            <CardLine 
-              label="Data przystąpienia" 
-              value={new Intl.DateTimeFormat(LOCALE).format(Number(joinDate) * 1000)} 
-            />
+            <CardLine label="Numer" value={pspdId} />
             <CardLine
-              label="Oddział"
-              value={ot}
+              label="Składka opłacona"
+              value={<span className="text-green-600 font-bold">TAK</span>}
               isEven
             />
             <CardLine
+              label="Data przystąpienia"
+              value={new Intl.DateTimeFormat(LOCALE).format(
+                Number(joinDate) * 1000
+              )}
+            />
+            <CardLine label="Oddział" value={region} isEven />
+            <CardLine
               label="Ostatnia aktualizacja"
-              value={<span className={isOutdated ? 'text-red-600 font-bold' : ''}>{lastUpdate}</span>}
+              value={
+                <span className={isOutdated ? 'text-red-600 font-bold' : ''}>
+                  {lastUpdate}
+                </span>
+              }
             />
           </dl>
         </div>

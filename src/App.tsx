@@ -1,40 +1,35 @@
-import { useEffect, useCallback, useState } from 'react'
+import { useState } from 'react'
 import './App.css'
 import { SignIn } from './sign-in'
 import { Card } from './card'
 import { User } from './types'
-import { fetchUserData } from './lib/api'
-import { Loading } from './loading'
+import { SwitchTransition, CSSTransition } from 'react-transition-group'
+import Loader from './components/Loader'
 
 const App = (): JSX.Element => {
-  const [isLoading, setIsLoading] = useState(true)
   const [user, setUser] = useState<User>()
-
-  const init = useCallback(async () => {
-    const userData = await fetchUserData()
-    if (userData) {
-      setUser(userData)
-    }
-  }, [fetchUserData])
-
-  useEffect(() => {
-    init().then(() => setIsLoading(false))
-  }, [init])
+  const [isLoading, setIsLoading] = useState<boolean>()
 
   const handleSuccess = (userData: User) => {
     setUser(userData)
   }
 
-  if (isLoading) {
-    return <Loading />
-  }
-
-  if (user) {
-    return <Card {...user} />
-  }
-
   return (
-    <SignIn onSuccess={handleSuccess} />
+    <>
+
+      <SwitchTransition mode={'in-out'}>
+        <CSSTransition
+          appear
+          key={user ? 'user' : isLoading ? 'loading' : 'form'}
+          addEndListener={(node, done) => node.addEventListener('transitionend', done, false)}
+          classNames='fade'
+        >
+          {user ? <Card {...user} /> : isLoading ? <Loader /> :
+            <SignIn onSuccess={handleSuccess} onLoading={state => setIsLoading(state)} />
+          }
+        </CSSTransition>
+      </SwitchTransition>
+    </>
   )
 }
 
