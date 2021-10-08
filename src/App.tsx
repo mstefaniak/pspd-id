@@ -41,12 +41,12 @@ const App = (): JSX.Element => {
           )}
           {
             !loading &&           
-            <footer className="flex-1 w-full bg-gray-100">
+            <footer className="flex flex-1 items-center w-full bg-gray-100 max-h-16">
               <div className="max-w-7xl mx-auto py-2 px-4 overflow-hidden sm:px-6 lg:px-8">
                 <p onClick={() => emptyCacheStorage()} className="mt-1 text-center text-xs text-gray-400">
                 Hash: {meta.version}
                 </p>
-                <div className="flex justify-around">
+                <div className="flex justify-around items-end">
                   <span className="mt-1 text-center text-xs text-gray-400">
                   UI: {appVersion}
                   </span>

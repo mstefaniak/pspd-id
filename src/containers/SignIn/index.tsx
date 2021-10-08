@@ -26,7 +26,7 @@ const SignIn = (): JSX.Element => {
 
   return (
     <>
-      <div className="flex-1 w-full flex items-start justify-center bg-gray-50 pb-2 md:py-12 px-4 sm:px-6 lg:px-8">
+      <div className="flex-1 w-full flex items-center justify-center bg-gray-50 pb-2 md:py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>
             <img src={logo} alt="logo" className="-mb-20 -mt-10 sm:-mt-20" />
