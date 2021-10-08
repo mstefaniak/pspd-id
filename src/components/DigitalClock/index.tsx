@@ -1,16 +1,20 @@
-import moment from 'moment'
 import React, { useEffect, useState } from 'react'
+import { DATETIME_FORMAT_OPTIONS } from '../../lib/const'
 
-const DigitalClock = () => {
+export const DigitalClock = () => {
   const [time, setTime] = useState<number>()
 
   useEffect(() => {
-    setInterval(() => setTime(Date.now()), 1000)
+    const interval = setInterval(() => setTime(Date.now()), 1000)
+
+    return () => {
+      window.clearInterval(interval)
+    }
   }, [])
 
   return (
-    <p className="text-center text-xl text-gray-800 font-semibold">{moment(time).format('DD/MM/YY HH:mm:ss')}</p>
+    <p className="text-center text-xl text-gray-800 font-semibold">
+      {new Intl.DateTimeFormat('pl-PL', DATETIME_FORMAT_OPTIONS).format(time)}
+    </p>
   )
 }
-
-export default DigitalClock

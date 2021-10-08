@@ -1,56 +1,44 @@
 import { SyntheticEvent, ChangeEvent, useState } from 'react'
-import logo from './images/logo.png'
-import { User } from './types'
-import { fetchUserData } from './lib/api'
+import logo from '../../images/logo.png'
+import { useStore } from '../../store'
 
-interface ISignInProps {
-  onSuccess: (user: User) => void;
-  onLoading: (state: boolean) => void;
-}
-
-const SignIn = ({ onSuccess, onLoading }: ISignInProps): JSX.Element => {
+const SignIn = (): JSX.Element => {
+  const signInUser = useStore(state => state.signInUser)
+  const errors = useStore(state => state.errors)
   const [email, setEmail] = useState<string>()
-  const [pass, setPass] = useState<string>()
-  const [error, setError] = useState<boolean>(false)
+  const [password, setPassword] = useState<string>()
 
   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value)
   }
 
   const handlePassChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setPass(event.target.value)
+    setPassword(event.target.value)
   }
 
   const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault()
 
-    if (pass && email) {
-      onLoading(true)
-      const user = await fetchUserData(email, pass)
-      if (user) {
-        onSuccess(user)
-      } else {
-        setError(true)
-      }
-      onLoading(false)
+    if (email && password) {
+      signInUser(email, password)
     }
   }
 
   return (
     <>
-      <div className="min-h-screen flex items-start justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="flex-1 w-full flex items-start justify-center bg-gray-50 pb-2 md:py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>
-            <img src={logo} alt="logo" className="-mb-20 -mt-10" />
+            <img src={logo} alt="logo" className="-mb-20 -mt-10 sm:-mt-20" />
             <h2 className="text-center text-2xl font-extrabold text-gray-900">
             LEGITYMACJA
             </h2>
           </div>
-          {error && (
-            <div className="bg-red-200 text-red-600 p-4 text-center rounded">
-            Niepoprawny email i/lub hasło
+          {errors?.map(error => {
+            return <div key={error} className="bg-red-200 text-red-600 p-4 text-center rounded">
+              {error}
             </div>
-          )}
+          })}
           <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
             <input type="hidden" name="remember" value="true" />
             <div className="rounded-md shadow-sm -space-y-px">
@@ -74,7 +62,7 @@ const SignIn = ({ onSuccess, onLoading }: ISignInProps): JSX.Element => {
                 Hasło
                 </label>
                 <input
-                  value={pass}
+                  value={password}
                   onChange={handlePassChange}
                   id="password"
                   name="password"

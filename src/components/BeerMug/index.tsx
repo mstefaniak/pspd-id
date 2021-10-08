@@ -1,7 +1,7 @@
 import React from 'react'
 import './styles.css'
 
-const BeerMug: React.VFC = () => {
+export const BeerMug: React.VFC = () => {
   return (
     <div className="BeerMug__container">
       <div className="BeerMug__mug ">
@@ -15,5 +15,3 @@ const BeerMug: React.VFC = () => {
     </div>
   )
 }
-
-export default BeerMug

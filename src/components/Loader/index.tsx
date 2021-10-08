@@ -1,8 +1,8 @@
 import React from 'react'
 import './styles.css'
-import BeerMug from '../BeerMug'
+import { BeerMug } from '../BeerMug'
 
-const Loader: React.VFC = () => {
+export const Loader: React.VFC = () => {
   return (
     <div className={'Loader__container'}>
       <div className="flex flex-col justify-center items-center px-4 py-5 sm:p-48">
@@ -14,5 +14,3 @@ const Loader: React.VFC = () => {
     </div>
   )
 }
-
-export default Loader
