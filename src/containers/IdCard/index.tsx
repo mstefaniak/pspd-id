@@ -45,6 +45,7 @@ const Card = ({
     }
   }, [lastSyncTimestamp])
 
+
   if (!isActive) {
     return <NotActive />
   }

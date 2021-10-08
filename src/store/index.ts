@@ -1,8 +1,9 @@
 import create from 'zustand'
-import {UseStore} from 'zustand'
+import { UseStore } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { fetchUserData } from '../lib/api'
 import { User } from '../types'
+import { IDBStorage } from './idb-storage'
 
 interface IUserStore {
     user: User | null;
@@ -33,7 +34,7 @@ export const useStore: UseStore<IUserStore> = create(
     }),
     {
       name: 'pspd-id-storage',
-      getStorage: () => sessionStorage,
+      getStorage: () => IDBStorage,
     }
   )
 )
