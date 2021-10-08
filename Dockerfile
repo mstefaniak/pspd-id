@@ -3,6 +3,7 @@ WORKDIR /app
 COPY package.json yarn.lock ./
 RUN yarn
 COPY . ./
+RUN yarn prebuild
 RUN yarn build
 
 FROM nginx:1.21-alpine
