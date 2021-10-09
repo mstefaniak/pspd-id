@@ -7,6 +7,7 @@ import logo from '../../images/logo.png'
 import { useEffect, useState } from 'react'
 import { DigitalClock } from '../../components/DigitalClock'
 import { useStore } from '../../store'
+import { motion } from 'framer-motion'
 
 const Card = ({
   firstName,
@@ -35,9 +36,10 @@ const Card = ({
     }
   }, [])
 
-  const lastUpdate = new Intl.DateTimeFormat(LOCALE, DATETIME_FORMAT_OPTIONS).format(
-    lastSyncTimestamp
-  )
+  const lastUpdate = new Intl.DateTimeFormat(
+    LOCALE,
+    DATETIME_FORMAT_OPTIONS
+  ).format(lastSyncTimestamp)
 
   useEffect(() => {
     if (isOutdated) {
@@ -45,13 +47,17 @@ const Card = ({
     }
   }, [lastSyncTimestamp])
 
-
   if (!isActive) {
     return <NotActive />
   }
 
   return (
-    <div className="sm:min-h-screen sm:flex sm:items-start sm:justify-center sm:bg-gray-50 sm:py-12">
+    <motion.div
+      className="sm:min-h-screen sm:flex sm:items-start sm:justify-center sm:bg-gray-50 sm:py-12"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 0.2, duration: 0.8 }}
+    >
       <div className="sm:max-w-lg sm:shadow bg-white overflow-hidden sm:rounded-lg">
         <div className="px-4 py-1 sm:px-6 grid grid-cols-2">
           <h3 className="text-lg leading-6 font-medium text-gray-900 flex items-center">
@@ -82,9 +88,10 @@ const Card = ({
             />
             <CardLine
               label="Data przystąpienia"
-              value={new Intl.DateTimeFormat(LOCALE, DATETIME_FORMAT_OPTIONS).format(
-                Number(joinDate) * 1000
-              )}
+              value={new Intl.DateTimeFormat(
+                LOCALE,
+                DATETIME_FORMAT_OPTIONS
+              ).format(Number(joinDate) * 1000)}
             />
             <CardLine label="Oddział" value={region} isEven />
             <CardLine
@@ -109,7 +116,7 @@ const Card = ({
           </button>
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { DATETIME_FORMAT_OPTIONS } from '../../lib/const'
 
-export const DigitalClock = () => {
+export const DigitalClock: React.VFC = () => {
   const [time, setTime] = useState<number>()
 
   useEffect(() => {

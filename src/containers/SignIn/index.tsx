@@ -1,10 +1,11 @@
 import { SyntheticEvent, ChangeEvent, useState } from 'react'
+import { motion } from 'framer-motion'
 import logo from '../../images/logo.png'
 import { useStore } from '../../store'
 
 const SignIn = (): JSX.Element => {
-  const signInUser = useStore(state => state.signInUser)
-  const errors = useStore(state => state.errors)
+  const signInUser = useStore((state) => state.signInUser)
+  const errors = useStore((state) => state.errors)
   const [email, setEmail] = useState<string>()
   const [password, setPassword] = useState<string>()
 
@@ -26,25 +27,35 @@ const SignIn = (): JSX.Element => {
 
   return (
     <>
-      <div className="flex-1 w-full flex items-center justify-center bg-gray-50 pb-2 md:py-12 px-4 sm:px-6 lg:px-8">
+      <motion.div
+        className="flex-1 w-full flex items-center justify-center bg-gray-50 pb-2 md:py-12 px-4 sm:px-6 lg:px-8"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.2, duration: 0.8 }}
+      >
         <div className="max-w-md w-full space-y-8">
           <div>
             <img src={logo} alt="logo" className="-mb-20 -mt-10 sm:-mt-20" />
             <h2 className="text-center text-2xl font-extrabold text-gray-900">
-            LEGITYMACJA
+              LEGITYMACJA
             </h2>
           </div>
-          {errors?.map(error => {
-            return <div key={error} className="bg-red-200 text-red-600 p-4 text-center rounded">
-              {error}
-            </div>
+          {errors?.map((error) => {
+            return (
+              <div
+                key={error}
+                className="bg-red-200 text-red-600 p-4 text-center rounded"
+              >
+                {error}
+              </div>
+            )
           })}
           <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
             <input type="hidden" name="remember" value="true" />
             <div className="rounded-md shadow-sm -space-y-px">
               <div>
                 <label htmlFor="email-address" className="sr-only">
-                Email
+                  Email
                 </label>
                 <input
                   value={email}
@@ -59,7 +70,7 @@ const SignIn = (): JSX.Element => {
               </div>
               <div>
                 <label htmlFor="password" className="sr-only">
-                Hasło
+                  Hasło
                 </label>
                 <input
                   value={password}
@@ -80,12 +91,12 @@ const SignIn = (): JSX.Element => {
                 type="submit"
                 className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
               >
-              Zaloguj
+                Zaloguj
               </button>
             </div>
           </form>
         </div>
-      </div>
+      </motion.div>
     </>
   )
 }
